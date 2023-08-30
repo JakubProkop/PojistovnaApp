@@ -1,0 +1,109 @@
+﻿@model WebApplication8.Models.PolicyHolder
+
+@{
+    ViewData["Title"] = "Pojištěnec";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Policyholder</h4>
+    <hr />
+    @*//EDITED
+    @Html.ActionLink("SomeText", "Create", "Assurances", new { HolderId = Model.Id }, null)*@
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TelephoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TelephoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PostCode)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PostCode)
+        </dd>
+    </dl>
+</div>
+<table class="mt-3 table-responsive-sm index-tabulka" border="1" width="100%">
+    <thead>
+        <tr>
+            <th width="38%">
+                <div class="my-2 ml-1">
+                    Pojištění
+                </div>
+            </th>
+            <th witdh="38%">
+                <div class="my-2 ml-1">
+                    Částka
+                </div>
+            </th>
+            <th width="24%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Assurance assurance in ViewBag.Assurance)
+        {
+            <tr>
+                <td width="38%">
+                    <a class="my-2 ml-1" asp-controller="Assurances" asp-action="Details" asp-route-id=@assurance.Id>
+                        @assurance.Type
+                    </a>
+                </td>
+                <td witdh="38%">
+                    <div class="my-2 ml-1">
+                        @assurance.Amount Kč
+                    </div>
+                </td>
+                <td class="text-center" width="24%">
+                    <a class="btn btn-danger tlacitka-tabulka my-2" asp-controller="Assurances" asp-action="Delete" asp-route-id="@assurance.Id">Odstranit</a>
+                    <a class="btn btn-warning tlacitka-tabulka text-white my-2" asp-controller="Assurances" asp-action="Edit" asp-route-id="@assurance.Id">Upravit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*@foreach(Assurance assurance in ViewBag.Assurance)
+{
+    if(Model.Id == assurance.PolicyholderId)
+    {
+        <p>@assurance.Type</p>
+    }
+}*@
+<div class="text-center mt-3">
+    <a class="btn btn-primary text-white" onclick=@Html.ActionLink("Přidat pojištění", "Create", "Assurances", new { HolderId = Model.Id, FirstName = Model.FirstName, LastName = Model.LastName}, null)</a>
+    <a class="btn btn-warning text-white" asp-action="Edit" asp-route-id="@Model?.Id">Editovat pojištěnce</a>
+    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model?.Id">Odstranit pojištěnce</a>
+</div>
+    <a asp-action="Index">Back to List</a>
